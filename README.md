@@ -7,6 +7,20 @@ Modern, responsive task management application built with Node.js and React.
 ![React](https://img.shields.io/badge/React-18+-blue)
 ![MongoDB](https://img.shields.io/badge/MongoDB-5+-green)
 
+## 📱 Demo Screenshots
+
+<div align="center">
+  
+### 🔐 Authentication
+<img src="images/login.png" alt="Login Page" width="45%" />
+<img src="images/register.png" alt="Register Page" width="45%" />
+
+### 📊 Dashboard & Task Management
+<img src="images/dashboard.png" alt="Dashboard" width="45%" />
+<img src="images/task.png" alt="Task Management" width="45%" />
+
+</div>
+
 ## 🚀 Features
 
 - **User Authentication**: JWT-based secure login/register
@@ -75,8 +89,8 @@ task-manager-app/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/task-manager-app.git
-   cd task-manager-app
+   git clone https://github.com/elifnuroksuz/task-manager-fullstack.git
+   cd task-manager-fullstack
    ```
 
 2. **Setup Backend**
@@ -207,7 +221,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 If you have any questions or need help, please:
 - Open an issue on GitHub
-- Contact: your.email@example.com
+- Contact: elifnuroksuz@example.com
+- LinkedIn: [Elif Nur ÖKSÜZ](https://linkedin.com/in/elifnuroksuz)
 
 ## 🎉 Acknowledgments
 
@@ -219,6 +234,6 @@ If you have any questions or need help, please:
 
 ---
 
-**Built with ❤️ by [Your Name]**
+**Built with ❤️ by Elif Nur ÖKSÜZ**
 
 *Happy coding! 🚀*
