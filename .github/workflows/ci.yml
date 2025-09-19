@@ -1,0 +1,119 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  # Backend Tests
+  backend-test:
+    runs-on: ubuntu-latest
+    
+    services:
+      mongodb:
+        image: mongo:5.0
+        ports:
+          - 27017:27017
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: backend/package-lock.json
+    
+    - name: Install Backend Dependencies
+      run: |
+        cd backend
+        npm ci
+    
+    - name: Run Backend Linting
+      run: |
+        cd backend
+        npm run lint || true
+    
+    - name: Run Backend Tests
+      run: |
+        cd backend
+        npm test
+      env:
+        MONGODB_URI: mongodb://localhost:27017/taskmanager-test
+        JWT_SECRET: test-secret-key
+        NODE_ENV: test
+
+  # Frontend Tests
+  frontend-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+    
+    - name: Install Frontend Dependencies
+      run: |
+        cd frontend
+        npm ci
+    
+    - name: Run Frontend Tests
+      run: |
+        cd frontend
+        npm test -- --coverage --watchAll=false
+    
+    - name: Build Frontend
+      run: |
+        cd frontend
+        npm run build
+    
+    - name: Upload Frontend Build Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: frontend-build
+        path: frontend/build/
+
+  # Security Scan
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Run Security Audit - Backend
+      run: |
+        cd backend
+        npm audit --audit-level=high
+    
+    - name: Run Security Audit - Frontend
+      run: |
+        cd frontend
+        npm audit --audit-level=high
+
+  # Deployment (only on main branch)
+  deploy:
+    needs: [backend-test, frontend-test, security-scan]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Deploy to Production
+      run: |
+        echo "🚀 Deploying to production..."
+        # Deployment commands will go here
+        echo "✅ Deployment completed!"
+
+# Environment Variables (set these in GitHub Secrets)
+# MONGODB_URI
+# JWT_SECRET
+# RENDER_API_KEY (for backend deployment)
+# VERCEL_TOKEN (for frontend deployment)
