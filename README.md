@@ -221,7 +221,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 If you have any questions or need help, please:
 - Open an issue on GitHub
-- Contact: elifnuroksuz@example.com
+- Contact: elifnuroksuz4@gmail.com
 - LinkedIn: [Elif Nur ÖKSÜZ](https://linkedin.com/in/elifnuroksuz)
 
 ## 🎉 Acknowledgments
